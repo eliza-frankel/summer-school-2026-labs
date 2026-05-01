@@ -69,13 +69,13 @@ use_colors = .true.
 
 Next we need to decide what filter system, stellar atmosphere table, and Vega SED file to use. For this lab, we want to use the 2MASS filters and the Kurucz 2003 atmosphere tables. To find out what systems are available, let's move to data directory and start exploring! 
 
-``` bash {}
+``` bash
 cd $MESA_DIR/data/colors_data/
 ```
 
 Once you've found the right filters and atmosphere tables, add them to your inlist.
 
-``` fortran {&colors}
+``` fortran
 instrument = '/data/colors_data/ADD/FILTERS/HERE'
 stellar_atm = '/data/colors_data/ADD/MODELS/HERE/'
 vega_sed = '/data/colors_data/VEGA_SED/HERE/'
