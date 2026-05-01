@@ -63,7 +63,7 @@ This is where we can enable synthetic photometry and determine what filters we'd
 
 The first thing we need to do is to make sure the colors module is on. By default, custom colors is turned off.
 
-``` fortran {&colors}
+``` fortran
 use_colors = .true.
 ```
 
