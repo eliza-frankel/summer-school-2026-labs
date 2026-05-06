@@ -1,5 +1,6 @@
 # Lab 2 - Exploring MESA Custom Colors!
 
+
 The MESA colors module allows us to generate synthetic photometry while running MESA stellar evolution models! It is a great way to merge observational and theoretical astronomy. With the colors module, we can specify what filter system and stellar atmosphere we want to use, and on top of regular MESA outputs (effective temperature, luminosity, age, etc.) we get bolometric magnitude, M$_{bol}$, bolometric flux, F$_{bol}$, and many synthetic magnitudes. For more information on the colors module, look at https://github.com/MESAHub/mesa/tree/main/colors.
 
 
@@ -123,22 +124,14 @@ Once you've found the right filters and atmosphere tables, add them to your inli
 > [!CAUTION]
 > Proper syntax is important! Make sure that for the `instrument` directory there _isn't_ a '/' at the end, but for `stellar_atm` there _is_ a '/'
 
-Now let's decide the distance of the star (in cm). For apparent magnitude, you can do any distance you want. For absolute magnitude, the distance should be 10 parsecs, or 3.0857 x 10<sup>19</sup> cm. Update the distance parameter to be 10 pc.
+Now let's decide the distance of the star (in cm). For apparent magnitude, you can do any distance you want. For absolute magnitude, the distance should be 10 parsecs, or 3.0857 x 10<sup>19</sup> cm. Update the distance parameter to be 10 pc
 
-<details>
-  <summary>Solution</summary>
 
-  ```fortran
+
+{{< details title="Solution" closed="true" >}}
+
+```fortran
   distance = 3.0857d19
-  ```
-</details>
-
-
-
-
-{{< details title="Other options" closed="true" >}}
-
-Similarly, you can also define the initial rotation as a fraction of the Keplerian critical break-up frequency or as a surface velocity at the equator in km/s, but we will not
-use these options for this lab.
+```
 
 {{< /details >}}
