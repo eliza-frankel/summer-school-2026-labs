@@ -40,43 +40,7 @@ use_other_torque    = .false.
 ### Step 2 - Building the inlist
 
 For this lab, we are going to start with the same inlist as before, but we'll be adding a few things. Start by opening up `inlist_project` in a text editor.
-We will be changing parameters in `&controls`, `&colors`, and the `inlist_pgstar`. Let's start with `&controls`!
-
-#### `&controls`
-
-This is the section with the main stellar evolution parameters. Our goal is to change the stellar input parameters to see how they change evolution! The first thing we want to change is how the atmospheric boundary conditions are controlled. Look through the _controls_ tab under star defaults in the [documentation](https://docs.mesastar.org/en/26.4.1/reference.html) to the right parameters to change. What does it control specifically?
-
-
-
-<details>
-<summary>Hint</summary>
-<br> The section atmospheric boundary conditions has everything we'll need to start. `atm_option` is the main parameter we'll use. This changes how surface temperature (Tsurf) and surface pressure (Psurf) are evaluated at outer boundary conditions.
-</details>
-
-
-Lets first use a **T($\tau$)** relationship. This defines how the atmospheric pressure structure is obtained by integrating the hydrostatic equilibrium equation,
-
-$$
-\frac{dP}{d\tau} = \frac{g}{\kappa}.
-$$
-
-Here, we assume that gravity, _g_, is spatially constant. There are 3 options for the **T($\tau$)** relationship: `Eddington`, `solar_Hopf`, and `Krishna_Swamy`. Try changing the atmospheric boundary relation to each of these and run them.
-
-
-
-<details>
-  <summary>Solution</summary>
-
-  ```fortran
-  atm_option = 'T_tau' 
-  atm_T_tau_relation = 'Eddington' 
-  atm_T_tau_opacity = 'varying' 
-  ```
-
-</details>
-
-
-
+We will be changing parameters in `&colors`, `&controls`, and the `inlist_pgstar`. Let's start with `&colors`!
 
 #### `&colors`
 
@@ -96,22 +60,19 @@ cd $MESA_DIR/data/colors_data/
 
 Once you've found the right filters and atmosphere tables, add them to your inlist.
 
-<details>
-  <summary>Hint</summary>
+  {{< details title="Hint" closed="true" >}}
 
   ```fortran
   instrument = '/data/colors_data/ADD/FILTERS/HERE'
   stellar_atm = '/data/colors_data/ADD/MODELS/HERE/'
   vega_sed = '/data/colors_data/VEGA_SED/HERE/'
   ```
-  
-</details>
+  {{< /details >}}
 
 
 
 
-<details>
-  <summary>Solution</summary>
+  {{< details title="Solution" closed="true" >}}
 
   ```fortran
   instrument = '/data/colors_data/filters/2MASS/2MASS'
@@ -119,7 +80,8 @@ Once you've found the right filters and atmosphere tables, add them to your inli
   vega_sed = '/data/colors_data/stellar_models/vega_flam.csv'
   ```
 
-</details>
+  {{< /details >}}
+  
 
 > [!CAUTION]
 > Proper syntax is important! Make sure that for the `instrument` directory there _isn't_ a '/' at the end, but for `stellar_atm` there _is_ a '/'
@@ -135,6 +97,39 @@ Now let's decide the distance of the star (in cm). For apparent magnitude, you c
 ```
 
 {{< /details >}}
+
+
+#### `&controls`
+
+This is the section with the main stellar evolution parameters. Our goal is to change the stellar input parameters to see how they change evolution! The first thing we want to change is how the atmospheric boundary conditions are controlled. Look through the _controls_ tab under star defaults in the [documentation](https://docs.mesastar.org/en/26.4.1/reference.html) to the right parameters to change. What does it control specifically?
+
+
+{{< details title="Hint" closed="true" >}}
+
+The section atmospheric boundary conditions has everything we'll need to start. `atm_option` is the main parameter we'll use. This changes how surface temperature (Tsurf) and surface pressure (Psurf) are evaluated at outer boundary conditions.
+
+{{< /details >}}
+
+Lets first use a **T($\tau$)** relationship. This defines how the atmospheric pressure structure is obtained by integrating the hydrostatic equilibrium equation,
+
+$$
+\frac{dP}{d\tau} = \frac{g}{\kappa}.
+$$
+
+Here, we assume that gravity, _g_, is spatially constant. There are 3 options for the **T($\tau$)** relationship: `Eddington`, `solar_Hopf`, and `Krishna_Swamy`. Try changing the atmospheric boundary relation to each of these and run them.
+
+
+  {{< details title="Solution" closed="true" >}}
+
+  ```fortran
+  atm_option = 'T_tau' 
+  atm_T_tau_relation = 'Eddington' 
+  atm_T_tau_opacity = 'varying' 
+  ```
+
+  {{< /details >}}
+
+
 
 #### `inlist_pgstar`
 Now let's edit the custom plots we see as our star evolves. The first thing we are going to do is either remove or comment out the custom plots we used in Lab 1.
