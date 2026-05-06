@@ -42,7 +42,7 @@ use_other_torque    = .false.
 For this lab, we are going to start with the same inlist as before, but we'll be adding a few things. Start by opening up `inlist_project` in a text editor.
 We will be changing parameters in `&colors`, `&controls`, and the `inlist_pgstar`. Let's start with `&colors`!
 
-#### `&colors`
+#### Setting up Custom Colors in `&colors`
 
 This is where we can enable synthetic photometry and determine what filters we'd like to use. Let's look through the [documentation](https://github.com/MESAHub/mesa/tree/main/colors).
 
@@ -185,8 +185,12 @@ Nothing shows up in the plotting window! This is because of the lines under "! s
 
 {{< /details >}}
 
+**ELIZA ADD CMD**
+
 
 ### Step 3 - Changing parameters and running
+
+#### Boundary Conditions
 
 For this lab, we want to explore the different atmospheric boundary conditions and the mixing length parameter, $\alpha_{MLT}$. Start with just changing the boundary conditions.
 
@@ -209,3 +213,31 @@ There are many different combinations you can try! First, try changing `atm_T_ta
 > Remember to change `star_history_name` to include the changes to atmospheric boundary conditons!
 
 {{< /details >}}
+
+Once you've explored how the atmospheric boundary conditions change evolution, set `atm_T_tau_relation` back to `Eddington`.
+
+#### Mixing length parameter, $\alpha_{MLT}$
+
+As we know, MESA is a 1 dimensional stellar evolution code which means it has to be creative when modeling 3D processes. In order to model energy transport in stars, MESA utilizes mixing length theory (MLT), which is the standard 1D parametarization of convection. One of the key parts of MLT is the mixing length parameter, $\alpha_{MLT}$. This is a unitless value that represents the convective efficiency of a region (i.e. what fraction of energy transport is being moved by convection rather than radiation). By changing $\alpha_{MLT}$, we can drastically change a star's main sequence lifetime, opacity, and more!
+
+Up until now, we've been using a mixing length parameter value of 1.50. Look through the controls default parameters again and find the mixing length parameter, or $\alpha_{MLT}$. Once you locate it, try changing the value between 0 - 3 and see what happens.
+
+{{< details title="Hint" closed="true" >}}
+Check under the tab "mixing parameters" for the controls defaults
+{{< /details >}}
+
+{{< details title="Answer" closed="true" >}}
+mixing_length_alpha = 1.8d0
+{{< /details >}}
+
+Because we want to compare how different values of the mixing length parameter change evolution, remember to change the name of your output history file. For example, if you are running a model with $\alpha{MLT}$ = 1.8d0, you could name your history file something like:
+
+```fortran
+star_history_name = '1.0Msun_alphaMLT1.80_history.data'
+```
+
+Pick 3 different values of $\alpha{MLT}$ and run a model for each, changing the output file name for each!
+
+
+### Part 4 - Visualizing the changes outside of MESA
+
