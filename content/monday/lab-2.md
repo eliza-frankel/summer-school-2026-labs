@@ -135,3 +135,40 @@ Now let's decide the distance of the star (in cm). For apparent magnitude, you c
 ```
 
 {{< /details >}}
+
+#### `inlist_pgstar`
+Now let's edit the custom plots we see as our star evolves. The first thing we are going to do is either remove or comment out the custom plots we used in Lab 1.
+Remove the following lines:
+
+```fortran
+Grid1_plot_name(7) = 'History_Track2'
+
+History_Track2_title = 'total AM'
+History_Track2_xname = 'log_star_age'
+History_Track2_yname = 'log_total_angular_momentum'
+History_Track2_xaxis_label = 'log_star_age'
+History_Track2_yaxis_label = 'log_total_angular_momentum'
+
+History_Track2_ymin = 47
+History_Track2_ymax = 50
+```
+
+While the star evolves, we want to see how an HR diagram compares to a color-magnitude diagram. Luckily, we have an HR diagram already there! 
+
+**Question** Let's evolve the star using `./rn` and wait until our plotting windows pop up. What do you notice about the HR diagram?
+
+{{< details title="Answer" closed="true" >}}
+
+Nothing shows up in the plotting window! This is because of the lines under "! set static plot bounds" - our star is evolving outside of the log(Teff) and log(L) limits given. Let's remove the following lines:
+
+```fortran
+! set static plot bounds
+ HR_logT_min = 3.5
+ HR_logT_max = 4.6
+ HR_logL_min = 2.0
+ HR_logL_max = 6.0
+```
+
+{{< /details >}}
+
+
