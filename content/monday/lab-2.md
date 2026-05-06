@@ -70,8 +70,6 @@ Once you've found the right filters and atmosphere tables, add them to your inli
   {{< /details >}}
 
 
-
-
   {{< details title="Solution" closed="true" >}}
 
   ```fortran
@@ -98,10 +96,32 @@ Now let's decide the distance of the star (in cm). For apparent magnitude, you c
 
 {{< /details >}}
 
+The last thing we need to do to make sure Custom Colors works in the `inlist` file.
+**Question** Do you see anything pointing to `&colors`?
+
+
+{{< details title="Answer" closed="true" >}}
+
+No! Add the following lines of code to make sure MESA includes Custom Colors:
+
+```fortran
+&colors
+
+   read_extra_colors_inlist(1) = .true.
+   extra_colors_inlist_name(1) = 'inlist_project'
+
+/ ! end of colors namelist
+
+```
+
+{{< /details >}}
+
 
 #### `&controls`
 
-This is the section with the main stellar evolution parameters. Our goal is to change the stellar input parameters to see how they change evolution! The first thing we want to change is how the atmospheric boundary conditions are controlled. Look through the _controls_ tab under star defaults in the [documentation](https://docs.mesastar.org/en/26.4.1/reference.html) to the right parameters to change. What does it control specifically?
+This is the section with the main stellar evolution parameters. Our goal is to change the stellar input parameters to see how they change evolution! Keep the same stellar mass you used in Lab 1.
+
+The first thing we want to change is how the atmospheric boundary conditions are controlled. Look through the _controls_ tab under star defaults in the [documentation](https://docs.mesastar.org/en/26.4.1/reference.html) to the right parameters to change. What does it control specifically?
 
 
 {{< details title="Hint" closed="true" >}}
@@ -116,7 +136,7 @@ $$
 \frac{dP}{d\tau} = \frac{g}{\kappa}.
 $$
 
-Here, we assume that gravity, _g_, is spatially constant. There are 3 options for the **T($\tau$)** relationship: `Eddington`, `solar_Hopf`, and `Krishna_Swamy`. Try changing the atmospheric boundary relation to each of these and run them.
+Here, we assume that gravity, _g_, is spatially constant. There are 4 options for the **T($\tau$)** relationship: `Eddington`, `solar_Hopf`, `Krishna_Swamy`, and `Trampedach_solar`. Start by using the Eddington relationship.
 
 
   {{< details title="Solution" closed="true" >}}
@@ -130,10 +150,9 @@ Here, we assume that gravity, _g_, is spatially constant. There are 3 options fo
   {{< /details >}}
 
 
-
 #### `inlist_pgstar`
 Now let's edit the custom plots we see as our star evolves. The first thing we are going to do is either remove or comment out the custom plots we used in Lab 1.
-Remove the following lines:
+**Remove the following lines**:
 
 ```fortran
 Grid1_plot_name(7) = 'History_Track2'
@@ -167,3 +186,26 @@ Nothing shows up in the plotting window! This is because of the lines under "! s
 {{< /details >}}
 
 
+### Step 3 - Changing parameters and running
+
+For this lab, we want to explore the different atmospheric boundary conditions and the mixing length parameter, $\alpha_{MLT}$. Start with just changing the boundary conditions.
+
+In `&controls` above, we chose the Eddington T_tau relationship. Before we start running MESA, let's change one more parameter in `&controls` - because we want to compare how different parameters change evolution, we need to change the output file name so they don't overwrite each other. Make sure you give your new history file a descriptive name, for example if you are running a 1 $M_{\odot}$ star using the T_tau Eddington relationship, a good name would be: 
+
+```fortran
+star_history_name = '1.0Msun_TtauEddington_history.data'
+```
+
+Now you can `./rn` and watch the star evolve. 
+
+Once it is done, try changing up the atmospheric boundary conditions and see what changes!
+
+
+{{< details title="Hint" closed="true" >}}
+
+There are many different combinations you can try! First, try changing `atm_T_tau_relation` between `solar_Hopf`, `Krishna_Swamy`, and `Trampedach_solar`. 
+
+> [!CAUTION]
+> Remember to change `star_history_name` to include the changes to atmospheric boundary conditons!
+
+{{< /details >}}
