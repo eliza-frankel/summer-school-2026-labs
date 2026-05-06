@@ -15,16 +15,22 @@ In this lab, we'll learn how atmospheric boundary conditions and the convective 
 
 Last lab we made a working directory that has everything we want to start lab 2. The first thing we will do is copy lab 1 into a new working directory:
 
-``` bash
+```bash
 cp -r lab1 lab2
 cd lab2
 ```
 Lets clean this directory and get rid of our outputs from Lab 1:
 
-``` terminal
+```bash
 ./clean
 ./mk
 rm -r LOGS
+```
+In Lab 1, we explored magnetic braking. Let's turn it off for this lab in the `&controls` section of `inlist_project`
+
+```fortran
+! Enable magnetic braking.
+use_other_torque    = .false.
 ```
 
 > [!CAUTION]
@@ -32,8 +38,8 @@ rm -r LOGS
 
 ### Step 2 - Building the inlist
 
-For this lab, we are going to start with the same inlist as before, but we'll be adding a few things. 
-We will be changing parameters in `&controls`, `&pgstar`, `&colors`. Let's start with `&controls`!
+For this lab, we are going to start with the same inlist as before, but we'll be adding a few things. Start by opening up `inlist_project` in a text editor.
+We will be changing parameters in `&controls`, `&colors`, and the `inlist_pgstar`. Let's start with `&controls`!
 
 #### `&controls`
 
@@ -60,7 +66,7 @@ Here, we assume that gravity, _g_, is spatially constant. There are 3 options fo
 <details>
   <summary>Solution</summary>
 
-  ``` fortran
+  ```fortran
   atm_option = 'T_tau' 
   atm_T_tau_relation = 'Eddington' 
   atm_T_tau_opacity = 'varying' 
@@ -77,13 +83,13 @@ This is where we can enable synthetic photometry and determine what filters we'd
 
 The first thing we need to do is to make sure the colors module is on. By default, custom colors is turned off.
 
-``` fortran
+```fortran
 use_colors = .true.
 ```
 
 Next we need to decide what filter system, stellar atmosphere table, and Vega SED file to use. For this lab, we want to use the 2MASS filters and the Kurucz 2003 atmosphere tables. To find out what systems are available, let's move to data directory and start exploring! 
 
-``` bash
+```bash
 cd $MESA_DIR/data/colors_data/
 ```
 
@@ -92,7 +98,7 @@ Once you've found the right filters and atmosphere tables, add them to your inli
 <details>
   <summary>Hint</summary>
 
-  ``` fortran
+  ```fortran
   instrument = '/data/colors_data/ADD/FILTERS/HERE'
   stellar_atm = '/data/colors_data/ADD/MODELS/HERE/'
   vega_sed = '/data/colors_data/VEGA_SED/HERE/'
@@ -106,7 +112,7 @@ Once you've found the right filters and atmosphere tables, add them to your inli
 <details>
   <summary>Solution</summary>
 
-  ``` fortran
+  ```fortran
   instrument = '/data/colors_data/filters/2MASS/2MASS'
   stellar_atm = '/data/colors_data/stellar_models/Kurucz2003all/'
   vega_sed = '/data/colors_data/stellar_models/vega_flam.csv'
@@ -122,8 +128,17 @@ Now let's decide the distance of the star (in cm). For apparent magnitude, you c
 <details>
   <summary>Solution</summary>
 
-  ``` fortran
+  ```fortran
   distance = 3.0857d19
   ```
 </details>
 
+
+
+
+{{< details title="Other options" closed="true" >}}
+
+Similarly, you can also define the initial rotation as a fraction of the Keplerian critical break-up frequency or as a surface velocity at the equator in km/s, but we will not
+use these options for this lab.
+
+{{< /details >}}
