@@ -257,12 +257,12 @@ Pick 3 different values of $\alpha{MLT}$ and run a model for each, changing the 
 
 #### Isochrones
 
-Go to the same Google spreadsheet as in Lab 1 (ADD LINK). On the bottom, switch to the tab labeled "Lab 2". For this part, let's rerun a star with `mixing_length_alpha = 1.8d0` and the Eddington atmospheric boundary condition (`atm_T_tau_relation = 'Eddington'`). Once your star is done evolving, copy the values for "Teff" and "log(L)" from the terminal window into the Google sheet. _Make sure you are putting the values at the right corresponding age!_
+Go to the same [Google spreadsheet](https://docs.google.com/spreadsheets/d/1C88C5V2siCAaK8-3qgAZoNc9-9IH-RTIqFVetXQc3EM/edit?usp=sharing) as Lab 1. On the bottom, switch to the tab labeled "Lab 2". For this part, let's rerun a star with `mixing_length_alpha = 1.8d0` and the Eddington atmospheric boundary condition (`atm_T_tau_relation = 'Eddington'`). Once your star is done evolving, copy the values for "Teff" and "log(L)" from the terminal window into the Google sheet. _Make sure you are putting the values at the right corresponding age!_
 
 As everyone finishes filling out the spreadsheet, we'll get to see the formation of an isochrone being built.
 
 #### Comparing atmospheric boundary conditions and mixing length parameters
 
-Now, go to the [Google Colab](https://colab.research.google.com/drive/1rFAu8UN0CC3GWllJfNyk7uV50FksOKok?usp=sharing) and _make a copy of it on your own Google drive!_
+Now, go to the [Google Colab](https://colab.research.google.com/drive/1rFAu8UN0CC3GWllJfNyk7uV50FksOKok?usp=sharing) and make a copy of it.
 
 Follow the instructions in the document to upload the different history files we made and see how changing one parameter can impact stellar evolution.
