@@ -185,7 +185,21 @@ Nothing shows up in the plotting window! This is because of the lines under "! s
 
 {{< /details >}}
 
-**ELIZA ADD CMD**
+The HR diagram is already turned on from the command `HR_win_flag = .true.` so all we have to do is make a color magnitude diagram! Later this week you'll learn to make customize your plots, but for now just copy and paste the following into `inlist_pgstar`:
+
+```fortran
+History_Track2_win_width = 6
+History_Track2_win_aspect_ratio = 1.0
+
+History_Track2_win_flag = .true.
+History_Track2_xname = 'J'
+History_Track2_yname = 'Mag_bol'
+History_Track2_title = '2MASS CMD'
+History_Track2_xaxis_label = 'J mag'
+History_Track2_yaxis_label = 'Bolometric Magnitude'
+History_Track2_reverse_xaxis = .true.
+History_Track2_reverse_yaxis = .true.
+```
 
 
 ### Step 3 - Changing parameters and running
@@ -197,7 +211,7 @@ For this lab, we want to explore the different atmospheric boundary conditions a
 In `&controls` above, we chose the Eddington T_tau relationship. Before we start running MESA, let's change one more parameter in `&controls` - because we want to compare how different parameters change evolution, we need to change the output file name so they don't overwrite each other. Make sure you give your new history file a descriptive name, for example if you are running a 1 $M_{\odot}$ star using the T_tau Eddington relationship, a good name would be: 
 
 ```fortran
-star_history_name = '1.0Msun_TtauEddington_history.data'
+star_history_name = '1p0Msun_TtauEddington_history.data'
 ```
 
 Now you can `./rn` and watch the star evolve. 
@@ -233,11 +247,22 @@ mixing_length_alpha = 1.8d0
 Because we want to compare how different values of the mixing length parameter change evolution, remember to change the name of your output history file. For example, if you are running a model with $\alpha{MLT}$ = 1.8d0, you could name your history file something like:
 
 ```fortran
-star_history_name = '1.0Msun_alphaMLT1.80_history.data'
+star_history_name = '1p0Msun_alphaMLT1p80_history.data'
 ```
 
 Pick 3 different values of $\alpha{MLT}$ and run a model for each, changing the output file name for each!
 
 
-### Part 4 - Visualizing the changes outside of MESA
+### Step 4 - Visualizing the changes outside of MESA
 
+#### Isochrones
+
+Go to the same Google spreadsheet as in Lab 1 (ADD LINK). On the bottom, switch to the tab labeled "Lab 2". For this part, let's rerun a star with `mixing_length_alpha = 1.8d0` and the Eddington atmospheric boundary condition (`atm_T_tau_relation = 'Eddington'`). Once your star is done evolving, copy the values for "Teff" and "log(L)" from the terminal window into the Google sheet. _Make sure you are putting the values at the right corresponding age!_
+
+As everyone finishes filling out the spreadsheet, we'll get to see the formation of an isochrone being built.
+
+#### Comparing atmospheric boundary conditions and mixing length parameters
+
+Now, go to the [Google Colab](https://colab.research.google.com/drive/1rFAu8UN0CC3GWllJfNyk7uV50FksOKok?usp=sharing) and _make a copy of it on your own Google drive!_
+
+Follow the instructions in the document to upload the different history files we made and see how changing one parameter can impact stellar evolution.
