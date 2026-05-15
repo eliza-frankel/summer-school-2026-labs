@@ -337,7 +337,9 @@ Follow the instructions in the document to upload the different history files we
 
 {{< details title="Final inlist solutions!" closed="true" >}}
 
-{{<details title="inlist_project" closed="true" > }}
+
+<details>
+<summary>inlist_project</summary>
 
 ```fortran
 &star_job
@@ -459,7 +461,7 @@ Follow the instructions in the document to upload the different history files we
 
 / ! end of colors namelist
 ```
-{{< /details >}}
+</details>
 
 hi
 
