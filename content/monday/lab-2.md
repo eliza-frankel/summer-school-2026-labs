@@ -41,7 +41,7 @@ In Lab 1, we explored magnetic braking. Let's make sure it's off for this lab in
 use_other_torque    = .false.
 ```
 
-(A clean working directory can be downloaded [here]() under the name lab2)
+(A clean working directory can be downloaded [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE) under the name lab2.zip)
 
 ### Step 2 - Building the inlist
 
