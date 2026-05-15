@@ -6,7 +6,7 @@ title = 'Lab 2 - Exploring MESA Custom Colors!'
 
 *Authors: Eliza Frankel (lead TA), Niall Miller, Joey Mombarg - Lecturer: Yaguang Li — MESA Summer School 2026, Tetons, Wyoming*
 
-The MESA colors module allows us to generate synthetic photometry while running MESA stellar evolution models! It is a great way to merge observational and theoretical astronomy. With the colors module, we can specify what filter system and stellar atmosphere we want to use, and on top of regular MESA outputs (effective temperature, luminosity, age, etc.) we get bolometric magnitude, M$_{bol}$, bolometric flux, F$_{bol}$, and many synthetic magnitudes. For more information on the colors module, look at https://github.com/MESAHub/mesa/tree/main/colors.
+The MESA colors module allows us to generate synthetic photometry while running MESA stellar evolution models! It is a great way to merge observational and theoretical astronomy. With the colors module, we can specify what filter system and stellar atmosphere we want to use, and on top of regular MESA outputs (effective temperature, luminosity, age, etc.) we get bolometric magnitude, M$_{bol}$, bolometric flux, F$_{bol}$, and many synthetic magnitudes. For more information on the colors module, look at the [documentation](https://github.com/MESAHub/mesa/tree/main/colors).
 
 
 One major age dating technique for stellar populations is through the use of isochrones. Isochrones are single-aged, chemically homogenous populations that show a snapshot of stellar evolution. They're made by evolving stars with the same chemical composition but different initial masses, and then finding what point in evolution each star is at at a particular age. Larger stars burn hotter and brighter, leaving the main sequence much quicker than a lower mass star. For example, at 10 Gyr we can see a 0.8 $M_{\odot}$ still on the main sequence, while a 5 $M_{\odot}$ star will be long past the Red Giant Branch. Because of this, we can build isochrones and use them to determine the age of stellar populations. One caveat to this is that they use the assumption that all the stars are at relatively the same distance and formed from the same materials at relatively the same time. _The best stellar populations to use isochrones when age dating stars is in clusters because we can make these assumptions._
@@ -293,13 +293,24 @@ The solar mixing length parameter for the Eddington T($\tau$) atmospheric bounda
 star_history_name = '1p0Msun_alphaMLT1p80_history.data'
 ```
 
-Each star has a different mixing length parameter, so you can't always use the solar value. For example, $\alpha$ Centauri A and B have mixing lengths that are 0.932 $\alpha_{MLT,\odot}$ and 1.095 $\alpha_{MLT,\odot}$, respectively. Try changing the value of `mixing_length_alpha` and running a model for both cases!
+Each star has a different mixing length parameter, so you can't always use the solar value. For example, $\alpha$ Centauri A and B have mixing lengths that are 0.932 $\alpha_{MLT,\odot}$ and 1.095 $\alpha_{MLT,\odot}$, respectively ([Joyce & Chaboyer 2018b](https://ui.adsabs.harvard.edu/abs/2018ApJ...864...99J/abstract)). Try changing the value of `mixing_length_alpha` and running a model for both cases!
+
+
 
 
 > [!TIP]
-> You can't use math in an inlist, so if you wanted to have twice the mixing length, write `mixing_length_alpha = 3.6d0` rather than `mixing_length_alpha = 2$\alpha_{MLT,\odot}$`
+> You can't use math in an inlist, so if you wanted to have twice the mixing length, write `mixing_length_alpha = 3.6d0` rather than `mixing_length_alpha = 2 * 1.8d0`
 
-Pick 3 different values of $\alpha{MLT}$ and run a model for each, changing the output file name for each!
+Choose at least 2 more objects from the following table and run a model for each.
+
+| Object  | Type | Mixing Length  | Source |
+| :---- | :-- |:---- |:-- |
+| M92 | Metal poor globular cluster | 0.90 $\alpha_{MLT,\odot}$ | [Joyce & Chaboyer 2018a](https://ui.adsabs.harvard.edu/abs/2018ApJ...856...10J/abstract) |
+| HD 140283 | Subgiant | 0.88 $\alpha_{MLT,\odot}$ | [Joyce & Chaboyer 2018a](https://ui.adsabs.harvard.edu/abs/2018ApJ...856...10J/abstract) |
+| HIP 54639 | Main sequence | 0.28 $\alpha_{MLT,\odot}$ |[Joyce & Chaboyer 2018a](https://ui.adsabs.harvard.edu/abs/2018ApJ...856...10J/abstract)  |
+| HIP 106924| Main sequence | 0.52 $\alpha_{MLT,\odot}$ | [Joyce & Chaboyer 2018a](https://ui.adsabs.harvard.edu/abs/2018ApJ...856...10J/abstract)  |
+| KIC 1430163 | Star | 1.2 $\alpha_{MLT,\odot}$ | [Viani et al. 2018](https://iopscience.iop.org/article/10.3847/1538-4357/aab7eb/pdf) |
+| KIC 1435467 | Star | 1.15 $\alpha_{MLT,\odot}$ | [Viani et al. 2018](https://iopscience.iop.org/article/10.3847/1538-4357/aab7eb/pdf) |
 
 
 ### Step 4 - Visualizing the changes outside of MESA
