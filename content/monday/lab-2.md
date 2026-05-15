@@ -157,7 +157,6 @@ Finally, you can replace the line for 'instrument' in `&colors` with
 instrument = '../data/filters/GAIA_2MASS/GAIA_2MASS'
 ```
 
-
 {{< /details >}}
 
 
@@ -278,21 +277,27 @@ Once you've explored how the atmospheric boundary conditions change evolution, s
 
 As we know, MESA is a 1 dimensional stellar evolution code which means it has to be creative when modeling 3D processes. In order to model energy transport in stars, MESA utilizes mixing length theory (MLT), which is the standard 1D parametarization of convection. One of the key parts of MLT is the mixing length parameter, $\alpha_{MLT}$. This is a unitless value that represents the convective efficiency of a region (i.e. what fraction of energy transport is being moved by convection rather than radiation). By changing $\alpha_{MLT}$, we can drastically change a star's main sequence lifetime, opacity, and more!
 
-Up until now, we've been using a mixing length parameter value of 1.50. Look through the controls default parameters again and find the mixing length parameter, or $\alpha_{MLT}$. Once you locate it, try changing the value between 0 - 3 and see what happens.
+Look through the controls default parameters again and find the mixing length parameter, or $\alpha_{MLT}$. What value have we been using? 
 
 {{< details title="Hint" closed="true" >}}
 Check under the tab "mixing parameters" for the controls defaults
 {{< /details >}}
 
 {{< details title="Answer" closed="true" >}}
-mixing_length_alpha = 1.8d0
+The default value is `mixing_length_alpha = 2.0d0`
 {{< /details >}}
 
-Because we want to compare how different values of the mixing length parameter change evolution, remember to change the name of your output history file. For example, if you are running a model with $\alpha{MLT}$ = 1.8d0, you could name your history file something like:
+The solar mixing length parameter for the Eddington T($\tau$) atmospheric boundary condition is arounnd 1.80. Add the solar mixing length parameter to `&controls` and remember to change the name of your output history file so you know what the input parameters are. In this case, you could name your history file something like:
 
 ```fortran
 star_history_name = '1p0Msun_alphaMLT1p80_history.data'
 ```
+
+Each star has a different mixing length parameter, so you can't always use the solar value. For example, $\alpha$ Centauri A and B have mixing lengths that are 0.932 $\alpha_{MLT,\odot}$ and 1.095 $\alpha_{MLT,\odot}$, respectively. Try changing the value of `mixing_length_alpha` and running a model for both cases!
+
+
+> [!TIP]
+> You can't use math in an inlist, so if you wanted to have twice the mixing length, write `mixing_length_alpha = 3.6d0` rather than `mixing_length_alpha = 2$\alpha_{MLT,\odot}$`
 
 Pick 3 different values of $\alpha{MLT}$ and run a model for each, changing the output file name for each!
 
