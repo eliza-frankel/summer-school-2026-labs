@@ -41,6 +41,8 @@ In Lab 1, we explored magnetic braking. Let's make sure it's off for this lab in
 use_other_torque    = .false.
 ```
 
+(A clean working directory can be downloaded [here]() under the name lab2)
+
 ### Step 2 - Building the inlist
 
 For this lab, we are going to start with the same inlist as before, but we'll be adding a few things. Start by opening up `inlist_project` in a text editor.
@@ -120,7 +122,9 @@ No! Add the following lines of code to make sure MESA includes Custom Colors:
 
 {{< /details >}}
 
-{{< details title="Bonus Task - More than 1 filter system" closed="true" >}}
+What if you want to compare more than one filter system at the same time?
+
+{{< details title="Bonus Task - More than one filter system" closed="true" >}}
 
 Sometimes you want to use more than one filter system. To do this with Custom Colors, we must look into the data structure more. Follow these steps to make a joint Gaia-2MASS filter system you can use:
 
@@ -165,6 +169,8 @@ instrument = '../data/filters/GAIA_2MASS/GAIA_2MASS'
 This is the section with the main stellar evolution parameters. Our goal is to change the stellar input parameters to see how they change evolution! Keep the same stellar mass you used in Lab 1, but let's change the output directory to something simple:
 
 `log_directory = 'LOGS'`
+
+Later in this lab, we'll explore the Mixing Length Theory (MLT) of convection, but for now add 
 
 The first thing we want to change is how the atmospheric boundary conditions are controlled. Look through the _controls_ tab under star defaults in the [documentation](https://docs.mesastar.org/en/26.4.1/reference.html) to the right parameters to change. What does it control specifically?
 
@@ -325,7 +331,7 @@ Choose at least 2 more objects from the following table and run a model for each
 
 Go to the same [Google spreadsheet](https://docs.google.com/spreadsheets/d/1C88C5V2siCAaK8-3qgAZoNc9-9IH-RTIqFVetXQc3EM/edit?usp=sharing) as Lab 1. On the bottom, switch to the tab labeled "Lab 2". For this part, let's rerun a star with `mixing_length_alpha = 1.8d0` and the Eddington atmospheric boundary condition (`atm_T_tau_relation = 'Eddington'`). Once your star is done evolving, copy the values for "Teff" and "log(L)" from the terminal window into the Google sheet. _Make sure you are putting the values at the right corresponding age!_
 
-As everyone finishes filling out the spreadsheet, we'll get to see the formation of an isochrone being built.
+As everyone finishes filling out the spreadsheet, we'll get to see an isochrone being built!
 
 #### Comparing atmospheric boundary conditions and mixing length parameters
 
@@ -334,9 +340,11 @@ Now, go to the [Google Colab](https://colab.research.google.com/drive/1rFAu8UN0C
 Follow the instructions in the document to upload the different history files we made and visualize how changing the atmospheric boundary conditions and mixing length parameter can impact stellar evolution. 
 
 
+### Inlist Solutions
 
 {{< details title="Final inlist solutions!" closed="true" >}}
 
+Here is what your inlist should look like! You can also download a copy from [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE?usp=drive_link) to make sure you get the lab working.
 
 <details>
 <summary>inlist_project</summary>
@@ -437,8 +445,6 @@ Follow the instructions in the document to upload the different history files we
       ! Can download other filter systems using SED-tools
       instrument = '/data/colors_data/filters/2MASS/2MASS'
 
-
-
       ! Your choice of stellar atmosphere table
       stellar_atm = '/data/colors_data/stellar_models/Kurucz2003all/' 
 
@@ -463,6 +469,42 @@ Follow the instructions in the document to upload the different history files we
 ```
 </details>
 
-hi
+<details>
+  <summary>inlist_pgstar</summary>
+  &pgstar
+
+   ! see star/defaults/pgstar.defaults
+
+   ! MESA uses PGPLOT for live plotting and gives the user a tremendous
+   ! amount of control of the presentation of the information.
+
+   ! show HR diagram
+   ! this plots the history of L,Teff over many timesteps
+   HR_win_flag = .true.
+
+
+   ! set window size (aspect_ratio = height/width)
+   HR_win_width = 6
+   HR_win_aspect_ratio = 1.0
+
+
+   ! Color Color diagram
+   History_Track2_win_width = 6
+   History_Track2_win_aspect_ratio = 1.0
+
+   History_Track2_win_flag = .true.
+   History_Track2_xname = 'J'
+   History_Track2_yname = 'Ks'
+   History_Track2_title = '2MASS Magnitudes'
+   History_Track2_xaxis_label = 'J mag'
+   History_Track2_yaxis_label = 'Ks mag'
+   History_Track2_reverse_xaxis = .true.
+   History_Track2_reverse_yaxis = .true.
+
+
+
+/ ! end of pgstar namelist
+
+</details> 
 
 {{< /details >}}
