@@ -19,7 +19,7 @@ This figure shows a series of isochrones at different ages between 0.03 Gyr to 1
 In this lab, we'll learn how atmospheric boundary conditions and the convective mixing length parameter can impact stellar evolution in both observational and theoretical coordinates. We'll also build isochrones to explore other techniques for age dating stellar populations and planet hosts.
 
 
-### Step 1 - Lab 2 Prep
+### Step 1 - Directory Prep
 
 Last lab we made a working directory that has everything we want to start lab 2. The first thing we will do is copy lab 1 into a new working directory:
 
@@ -161,6 +161,8 @@ Finally, you can replace the line for 'instrument' in `&colors` with
 instrument = '../data/filters/GAIA_2MASS/GAIA_2MASS'
 ```
 
+** A completely working version of this can be downloaded [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE) called 'BONUS_data_mulitple_filters.zip'. Make sure this is in the directory **above** your working directory for it to work!
+
 {{< /details >}}
 
 
@@ -169,8 +171,6 @@ instrument = '../data/filters/GAIA_2MASS/GAIA_2MASS'
 This is the section with the main stellar evolution parameters. Our goal is to change the stellar input parameters to see how they change evolution! Keep the same stellar mass you used in Lab 1, but let's change the output directory to something simple:
 
 `log_directory = 'LOGS'`
-
-Later in this lab, we'll explore the Mixing Length Theory (MLT) of convection, but for now add 
 
 The first thing we want to change is how the atmospheric boundary conditions are controlled. Look through the _controls_ tab under star defaults in the [documentation](https://docs.mesastar.org/en/26.4.1/reference.html) to the right parameters to change. What does it control specifically?
 
