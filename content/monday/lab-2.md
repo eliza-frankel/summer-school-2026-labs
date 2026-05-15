@@ -4,8 +4,6 @@ draft = false
 title = 'Lab 2 - Exploring MESA Custom Colors!'
 +++
 
-# Lab 2 - Exploring MESA Custom Colors!
-
 *Authors: Eliza Frankel (lead TA), Niall Miller, Joey Mombarg - Lecturer: Yaguang Li — MESA Summer School 2026, Tetons, Wyoming*
 
 The MESA colors module allows us to generate synthetic photometry while running MESA stellar evolution models! It is a great way to merge observational and theoretical astronomy. With the colors module, we can specify what filter system and stellar atmosphere we want to use, and on top of regular MESA outputs (effective temperature, luminosity, age, etc.) we get bolometric magnitude, M$_{bol}$, bolometric flux, F$_{bol}$, and many synthetic magnitudes. For more information on the colors module, look at https://github.com/MESAHub/mesa/tree/main/colors.
@@ -34,9 +32,9 @@ Lets clean this directory and get rid of our outputs from Lab 1:
 ```bash
 ./clean
 ./mk
-rm -r LOGS
+rm -r 1Msun_Z0p0134_Omega5000nHz_no_magnetic_braking ! Make this the name of your output directory defined in lab 1
 ```
-In Lab 1, we explored magnetic braking. Let's turn it off for this lab in the `&controls` section of `inlist_project`
+In Lab 1, we explored magnetic braking. Let's make sure it's off for this lab in `&controls`:
 
 ```fortran
 ! Enable magnetic braking.
@@ -119,6 +117,38 @@ No! Add the following lines of code to make sure MESA includes Custom Colors:
 / ! end of colors namelist
 
 ```
+
+{{< /details >}}
+
+{{< details title="Bonus Task - More than 1 filter system" closed="true" >}}
+
+Sometimes you want to use more than one filter system. To do this with Custom Colors, we must look into the data structure more. Follow these steps to make a joint Gaia-2MASS filter system you can use:
+
+```fortran
+! in your working directory
+mkdir data
+cd data
+mkdir GAIA_2MASS
+cd GAIA_2MASS
+
+cp -r $MESA_DIR/data/colors_data/filters/GAIA/GAIA/*.dat .
+cp -r $MESA_DIR/data/colors_data/filters/2MASS/2MASS/2MASS/*.dat .
+```
+
+Now that you've made this joint filter system, let's make a file called `GAIA_2MASS` and open it in your preferred text editor. Now add all the filters to use. For Gaia and 2MASS, it should look like:
+
+```fortran
+G.dat
+Gbp.dat
+Grp.dat
+Grvs.dat
+H.dat
+J.dat
+Ks.dat
+```
+
+
+
 
 {{< /details >}}
 
