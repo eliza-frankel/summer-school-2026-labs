@@ -124,10 +124,14 @@ No! Add the following lines of code to make sure MESA includes Custom Colors:
 
 Sometimes you want to use more than one filter system. To do this with Custom Colors, we must look into the data structure more. Follow these steps to make a joint Gaia-2MASS filter system you can use:
 
-```fortran
-! in your working directory
+``` terminal
+! in **one step above**your working directory
 mkdir data
 cd data
+mkdir filters
+cd filters
+mkdir GAIA_2MASS
+cd GAIA_2MASS
 mkdir GAIA_2MASS
 cd GAIA_2MASS
 
@@ -147,7 +151,11 @@ J.dat
 Ks.dat
 ```
 
+Finally, you can replace the line for 'instrument' in `&colors` with
 
+```fortran
+instrument = '../data/filters/GAIA_2MASS/GAIA_2MASS'
+```
 
 
 {{< /details >}}
