@@ -25,7 +25,7 @@ Last lab we made a working directory that has everything we want to start lab 2.
 
 ```bash
 cp -r work_lab1 work_lab2
-cd lab2
+cd work_lab2
 ```
 Lets clean this directory and get rid of our outputs from Lab 1:
 
@@ -41,7 +41,7 @@ In Lab 1, we explored magnetic braking. Let's make sure it's off for this lab in
 use_other_torque    = .false.
 ```
 
-(A clean working directory can be downloaded [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE) under the name lab2.zip)
+(A clean working directory can be downloaded [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE) under the name work_lab2.zip)
 
 ### Step 2 - Building the inlist
 
@@ -126,7 +126,7 @@ What if you want to compare more than one filter system at the same time?
 
 {{< details title="Bonus Task - More than one filter system" closed="true" >}}
 
-**Finish the rest of this lab and return to this if you have time!**
+**Make sure you finish the rest of this lab and return to this if you have time!**
 
 Sometimes you want to use more than one filter system. To do this with Custom Colors, we must look into the data structure more. Follow these steps to make a joint Gaia-2MASS filter system you can use:
 
@@ -138,12 +138,11 @@ mkdir filters
 cd filters
 mkdir GAIA_2MASS
 cd GAIA_2MASS
-mkdir GAIA_2MASS
-cd GAIA_2MASS
 
 cp -r $MESA_DIR/data/colors_data/filters/GAIA/GAIA/*.dat .
-cp -r $MESA_DIR/data/colors_data/filters/2MASS/2MASS/2MASS/*.dat .
+cp -r $MESA_DIR/data/colors_data/filters/2MASS/2MASS/*.dat .
 ```
+
 
 Now that you've made this joint filter system, let's make a file called `GAIA_2MASS` and open it in your preferred text editor. Now add all the filters to use. For Gaia and 2MASS, it should look like:
 
@@ -160,7 +159,7 @@ Ks.dat
 Finally, you can replace the line for 'instrument' in `&colors` with
 
 ```fortran
-instrument = '../data/filters/GAIA_2MASS/GAIA_2MASS'
+instrument = '../data/filters/GAIA_2MASS'
 ```
 
 ** A completely working version of this can be downloaded [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE) called 'BONUS_data_multiple_filters.zip'. Make sure this is in the directory **above** your working directory for it to work!
@@ -256,6 +255,7 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
 
 
 / ! end of pgstar namelist
+
 
 ```
 
