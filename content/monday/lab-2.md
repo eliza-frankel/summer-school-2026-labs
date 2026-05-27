@@ -191,7 +191,8 @@ $$
 Here, we assume that gravity, _g_, is spatially constant. There are 4 options for the **T($\tau$)** relationship: `Eddington`, `solar_Hopf`, `Krishna_Swamy`, and `Trampedach_solar`. 
 {{< details title="Information on T($\tau$) options" closed="true" >}}
 
-   * `Eddington` - The Eddington grey relation says that the effective temperature is equal to the physical temperature at an optical depth of 2/3 ($T^{4}(\tau) = \frac{3}{4} T^{4}_{\rm eff}(\tau + \frac{2}{3}$)
+   * `Eddington` - The Eddington grey relation says that the effective temperature is equal to the physical temperature at an optical depth of 2/3:
+   ($T^{4}(\tau) = \frac{3}{4} T^{4}_{\rm eff}(\tau + \frac{2}{3}$)
 
   {{< /details >}}
 
