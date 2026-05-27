@@ -6,7 +6,7 @@ title = 'Lab 2 - Exploring MESA Custom Colors!'
 
 *Authors: Eliza Frankel (lead TA), Niall Miller, Joey Mombarg - Lecturer: Yaguang Li — MESA Summer School 2026, Tetons, Wyoming*
 
-The MESA colors module allows us to generate synthetic photometry while running MESA stellar evolution models! It is a great way to merge observational and theoretical astronomy. With the colors module, we can specify what filter system and stellar atmosphere we want to use, and on top of regular MESA outputs (effective temperature, luminosity, age, etc.) we get bolometric magnitude, M$_{bol}$, bolometric flux, F$_{bol}$, and many synthetic magnitudes. For more information on the colors module, look at the [documentation](https://github.com/MESAHub/mesa/tree/main/colors).
+The MESA colors module allows us to generate synthetic photometry while running MESA stellar evolution models! It is a great way to merge observational and theoretical astronomy. With the colors module, we can specify what filter system and stellar atmosphere we want to use, and on top of regular MESA outputs (effective temperature, luminosity, age, etc.) we get bolometric magnitude, M$_{bol}$, bolometric flux, F$_{bol}$, and many synthetic magnitudes. For more information on the colors module, look at the [documentation](https://github.com/MESAHub/mesa/tree/main/colors) or go to `$MESA_DIR/colors/defaults/colors.defaults`.
 
 
 One major age dating technique for stellar populations is through the use of isochrones. Isochrones are single-aged, chemically homogenous populations that show a snapshot of stellar evolution. They're made by evolving stars with the same chemical composition but different initial masses, and then finding what point in evolution each star is at at a particular age. Larger stars burn hotter and brighter, leaving the main sequence much quicker than a lower mass star. For example, at 10 Gyr we can see a 0.8 $M_{\odot}$ still on the main sequence, while a 5 $M_{\odot}$ star will be long past the Red Giant Branch. Because of this, we can build isochrones and use them to determine the age of stellar populations. One caveat to this is that they use the assumption that all the stars are at relatively the same distance and formed from the same materials at relatively the same time. _The best stellar populations to use isochrones when age dating stars is in clusters because we can make these assumptions._
@@ -188,7 +188,14 @@ $$
 \frac{dP}{d\tau} = \frac{g}{\kappa}.
 $$
 
-Here, we assume that gravity, _g_, is spatially constant. There are 4 options for the **T($\tau$)** relationship: `Eddington`, `solar_Hopf`, `Krishna_Swamy`, and `Trampedach_solar`. Start by using the Eddington relationship.
+Here, we assume that gravity, _g_, is spatially constant. There are 4 options for the **T($\tau$)** relationship: `Eddington`, `solar_Hopf`, `Krishna_Swamy`, and `Trampedach_solar`. 
+{{< details title="Information on T($\tau$) options" closed="true" >}}
+
+   * `Eddington` - The Eddington grey relation says that the effective temperature is equal to the physical temperature at an optical depth of 2/3 ($T^{4}(\tau) = \frac{3}{4} T^{4}_{\rm eff}(\tau + \frac{2}{3}$)
+
+  {{< /details >}}
+
+Start by using the Eddington relationship.
 
 
   {{< details title="Solution" closed="true" >}}
@@ -256,8 +263,13 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
 
 / ! end of pgstar namelist
 
-
 ```
+
+> [!TIP]
+> For `inlist_pgstar` to work, there needs to be a blank new line after `/ ! end of pgstar namelist`. If you copy the file above and get the error `Fortran runtime error: End of file`, make sure to add a new line to `inlist_pgstar`
+
+
+
 
 
 ### Step 3 - Changing parameters and running
