@@ -24,7 +24,7 @@ In this lab, we'll learn how atmospheric boundary conditions and the convective 
 Last lab we made a working directory that has everything we want to start lab 2. The first thing we will do is copy lab 1 into a new working directory:
 
 ```bash
-cp -r lab1 lab2
+cp -r work_lab1 work_lab2
 cd lab2
 ```
 Lets clean this directory and get rid of our outputs from Lab 1:
@@ -126,6 +126,8 @@ What if you want to compare more than one filter system at the same time?
 
 {{< details title="Bonus Task - More than one filter system" closed="true" >}}
 
+**Finish the rest of this lab and return to this if you have time!**
+
 Sometimes you want to use more than one filter system. To do this with Custom Colors, we must look into the data structure more. Follow these steps to make a joint Gaia-2MASS filter system you can use:
 
 ``` terminal
@@ -161,7 +163,7 @@ Finally, you can replace the line for 'instrument' in `&colors` with
 instrument = '../data/filters/GAIA_2MASS/GAIA_2MASS'
 ```
 
-** A completely working version of this can be downloaded [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE) called 'BONUS_data_mulitple_filters.zip'. Make sure this is in the directory **above** your working directory for it to work!
+** A completely working version of this can be downloaded [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE) called 'BONUS_data_multiple_filters.zip'. Make sure this is in the directory **above** your working directory for it to work!
 
 {{< /details >}}
 
