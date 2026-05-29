@@ -218,14 +218,16 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
 ```
 
 > [!TIP]
-> For `inlist_pgstar` to work, there needs to be a blank new line after `/ ! end of pgstar namelist`. If you copy the file above and get the error `Fortran runtime error: End of file`, make sure to add a new line to `inlist_pgstar`
+> For `inlist_pgstar` to work, there needs to be a blank new line after `/ ! end of pgstar namelist`. If you copy the file above and get the error `Fortran runtime error: End of file`, make sure to add a new line to the end of `inlist_pgstar`
 
 
 ### Step 3 - Isochrone Building
 
 Isochrones are a snapshot of stellar evolution, showing how stars evolve differently at the same age depending on their initial masses. To visualize this, we'll run one stellar track and record the $T_{\rm eff}$ and log(L) at 1, 3, 5, 7, and 9 Gyr. **Use the same mass as in lab 1**
 
+```
 **Task:** Start the model run using `./rn`. Once your star is done evolving, copy the values for "$T_{\rm eff}$" and "log(L)" from the terminal window into this [Google spreadsheet](https://docs.google.com/spreadsheets/d/1C88C5V2siCAaK8-3qgAZoNc9-9IH-RTIqFVetXQc3EM/edit?usp=sharing) (make sure you switch to the tab labeled "Lab 2" at the bottom)
+```
 
 As everyone finishes filling out the spreadsheet, we'll get to see an isochrone being built!
 
