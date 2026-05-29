@@ -153,24 +153,15 @@ Here, we assume that gravity, _g_, is spatially constant. There are 4 options fo
 
    * `Eddington` - The Eddington grey relation says that the effective temperature is equal to the physical temperature at an optical depth of 2/3:
    $T^{4}(\tau) = \frac{3}{4} T^{4}_{\rm eff}(\tau + \frac{2}{3}$)
-   * `solar_Hopf` - A function calibrated to the Sun, using a grey T($\tau$) relation (i.e. 
-   * `Krishna_Swamy` - 
-   * `Trampedach_solar`
+   * `solar_Hopf` - A function calibrated to the Sun, using a grey T($\tau$) relation (ie opacity is independent of wavelength). Is more realistic near the photosphere
+   * `Krishna_Swamy` - Also calibrated to the Sun and uses a grey T($\tau$) relation.  
+   * `Trampedach_solar` - Uses 3D hydrodynamic simulations and models realistic radiative transfer
+
+  By switching between these model atmospheres, we can change the $T_{\rm eff}$, depth of convection zones, location of the red giant branch, and solar calibrations.
 
   {{< /details >}}
-
-Start by using the Eddington relationship.
-
-
-  {{< details title="Solution" closed="true" >}}
-
-  ```fortran
-  atm_option = 'T_tau' 
-  atm_T_tau_relation = 'Eddington' 
-  atm_T_tau_opacity = 'varying' 
-  ```
-
-  {{< /details >}}
+  
+We'll start with the Eddington relation which is already defined in our inlist.
 
 You can also change `atm_option` from 'T_tau', but be sure that you're using all the right parameters!
 >[!caution]
@@ -215,6 +206,7 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
 
 
 / ! end of pgstar namelist
+
 ```
 
 > [!TIP]
@@ -225,9 +217,9 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
 
 Isochrones are a snapshot of stellar evolution, showing how stars evolve differently at the same age depending on their initial masses. To visualize this, we'll run one stellar track and record the $T_{\rm eff}$ and log(L) at 1, 3, 5, 7, and 9 Gyr. **Use the same mass as in lab 1**
 
-```
+
 **Task:** Start the model run using `./rn`. Once your star is done evolving, copy the values for "$T_{\rm eff}$" and "log(L)" from the terminal window into this [Google spreadsheet](https://docs.google.com/spreadsheets/d/1C88C5V2siCAaK8-3qgAZoNc9-9IH-RTIqFVetXQc3EM/edit?usp=sharing) (make sure you switch to the tab labeled "Lab 2" at the bottom)
-```
+
 
 As everyone finishes filling out the spreadsheet, we'll get to see an isochrone being built!
 
@@ -252,7 +244,7 @@ Once it is done, try changing up the atmospheric boundary conditions and see wha
 
 {{< details title="Hint" closed="true" >}}
 
-There are many different combinations you can try! First, try changing `atm_T_tau_relation` between `solar_Hopf`, `Krishna_Swamy`, and `Trampedach_solar`. 
+There are many different combinations you can try! First, try changing `atm_T_tau_relation` to `solar_Hopf`, `Krishna_Swamy`, or `Trampedach_solar`. 
 
 > [!CAUTION]
 > Remember to change `star_history_name` to include the changes to atmospheric boundary conditons!
