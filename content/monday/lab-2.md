@@ -6,7 +6,7 @@ title = 'Lab 2 - Exploring MESA Custom Colors!'
 
 *Authors: Eliza Frankel (lead TA), Niall Miller, Joey Mombarg - Lecturer: Yaguang Li — MESA Summer School 2026, Tetons, Wyoming*
 
-The MESA colors module allows us to generate synthetic photometry while running MESA stellar evolution models! It is a great way to merge observational and theoretical astronomy. With the colors module, we can specify what filter system and stellar atmosphere we want to use, and on top of regular MESA outputs (effective temperature, luminosity, age, etc.) we get bolometric magnitude, M$_{bol}$, bolometric flux, F$_{bol}$, and many synthetic magnitudes. For more information on the colors module, look at the [documentation](https://github.com/MESAHub/mesa/tree/main/colors) or go to `$MESA_DIR/colors/defaults/colors.defaults`.
+The MESA colors module allows us to generate synthetic photometry while running MESA stellar evolution models! It is a great way to merge observational and theoretical astronomy. With the colors module, we can specify what filter system and stellar atmosphere we want to use, and on top of regular MESA outputs (effective temperature, luminosity, age, etc.) we get bolometric magnitude, M$_{bol}$, bolometric flux, F$_{bol}$, and many synthetic magnitudes. For more information on the colors module, look at the [documentation](https://docs.mesastar.org/en/26.4.1/test_suite/custom_colors.html) or look at `$MESA_DIR/colors/defaults/colors.defaults`.
 
 
 One major age dating technique for stellar populations is through the use of isochrones. Isochrones are single-aged, chemically homogenous populations that show a snapshot of stellar evolution. They're made by evolving stars with the same chemical composition but different initial masses, and then finding what point in evolution each star is at at a particular age. Larger stars burn hotter and brighter, leaving the main sequence much quicker than a lower mass star. For example, at 10 Gyr we can see a 0.8 $M_{\odot}$ still on the main sequence, while a 5 $M_{\odot}$ star will be long past the Red Giant Branch. Because of this, we can build isochrones and use them to determine the age of stellar populations. One caveat to this is that they use the assumption that all the stars are at relatively the same distance and formed from the same materials at relatively the same time. _The best stellar populations to use isochrones when age dating stars is in clusters because we can make these assumptions._
@@ -177,8 +177,8 @@ You can also change `atm_option` from 'T_tau', but be sure that you're using all
 For this lab, we are only going to use an HR diagram and a plot showing 2MASS magnitudes. You can either start with a blank inlist_pgstar (erase everything between `&pgstar` and `/ ! end of pgstar namelist` to copy the code below, or you can download the inlist_pgstar from [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE?usp=drive_link).
 
 
-```fortran
-&pgstar
+  ```fortran
+  &pgstar
 
    ! see star/defaults/pgstar.defaults
 
@@ -186,14 +186,9 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
    ! amount of control of the presentation of the information.
 
    ! show HR diagram
-   ! this plots the history of L,Teff over many timesteps
+   ! this plots the history of L, Teff over many timesteps
    HR_win_flag = .true.
 
-   ! ! set static plot bounds
-   HR_logT_min = 3.6
-   HR_logT_max = 3.85
-   HR_logL_min = -0.5
-   HR_logL_max = 1
 
    ! set window size (aspect_ratio = height/width)
    HR_win_width = 6
@@ -213,26 +208,26 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
    History_Track2_reverse_xaxis = .true.
    History_Track2_reverse_yaxis = .true.
 
-   History_Track2_ymin = 1.75
-   History_Track2_ymax = 3.5
-
-   History_Track2_xmin = 2.5
-   History_Track2_xmax = 4
-
 
 
 / ! end of pgstar namelist
-
 ```
 
 > [!TIP]
 > For `inlist_pgstar` to work, there needs to be a blank new line after `/ ! end of pgstar namelist`. If you copy the file above and get the error `Fortran runtime error: End of file`, make sure to add a new line to `inlist_pgstar`
 
 
+### Step 3 - Visualizing the changes outside of MESA
+
+#### Isochrones
+
+Go to the same [Google spreadsheet](https://docs.google.com/spreadsheets/d/1C88C5V2siCAaK8-3qgAZoNc9-9IH-RTIqFVetXQc3EM/edit?usp=sharing) as Lab 1. On the bottom, switch to the tab labeled "Lab 2". For this part, let's rerun a star with `mixing_length_alpha = 1.8d0` and the Eddington atmospheric boundary condition (`atm_T_tau_relation = 'Eddington'`). Once your star is done evolving, copy the values for "Teff" and "log(L)" from the terminal window into the Google sheet. _Make sure you are putting the values at the right corresponding age!_
+
+As everyone finishes filling out the spreadsheet, we'll get to see an isochrone being built!
 
 
 
-### Step 3 - Changing parameters and running
+### Step 4 - Changing parameters and running
 
 #### Boundary Conditions
 
@@ -299,15 +294,8 @@ Choose at least 2 more objects from the following table and run a model for each
 | KIC 1435467 | Star | 1.15 $\alpha_{MLT,\odot}$ | [Viani et al. 2018](https://iopscience.iop.org/article/10.3847/1538-4357/aab7eb/pdf) |
 
 
-### Step 4 - Visualizing the changes outside of MESA
 
-#### Isochrones
-
-Go to the same [Google spreadsheet](https://docs.google.com/spreadsheets/d/1C88C5V2siCAaK8-3qgAZoNc9-9IH-RTIqFVetXQc3EM/edit?usp=sharing) as Lab 1. On the bottom, switch to the tab labeled "Lab 2". For this part, let's rerun a star with `mixing_length_alpha = 1.8d0` and the Eddington atmospheric boundary condition (`atm_T_tau_relation = 'Eddington'`). Once your star is done evolving, copy the values for "Teff" and "log(L)" from the terminal window into the Google sheet. _Make sure you are putting the values at the right corresponding age!_
-
-As everyone finishes filling out the spreadsheet, we'll get to see an isochrone being built!
-
-#### Comparing atmospheric boundary conditions and mixing length parameters
+#### Comparing different atmospheric boundary conditions and mixing length parameters
 
 Now, go to the [Google Colab](https://colab.research.google.com/drive/1rFAu8UN0CC3GWllJfNyk7uV50FksOKok?usp=sharing) and make a copy of it.
 
@@ -445,6 +433,8 @@ Here is what your inlist should look like! You can also download a copy from [he
 
 <details>
   <summary>inlist_pgstar</summary>
+
+  ```fortran
   &pgstar
 
    ! see star/defaults/pgstar.defaults
@@ -453,7 +443,7 @@ Here is what your inlist should look like! You can also download a copy from [he
    ! amount of control of the presentation of the information.
 
    ! show HR diagram
-   ! this plots the history of L,Teff over many timesteps
+   ! this plots the history of L, Teff over many timesteps
    HR_win_flag = .true.
 
 
@@ -478,6 +468,7 @@ Here is what your inlist should look like! You can also download a copy from [he
 
 
 / ! end of pgstar namelist
+```
 
 </details> 
 
