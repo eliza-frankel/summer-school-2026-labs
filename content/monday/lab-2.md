@@ -45,8 +45,8 @@ use_other_torque    = .false.
 
 ### Step 2 - Building the inlist
 
-For this lab, we are going to start with the same inlist as before, but we'll be adding a few things. Start by opening up `inlist_project` in a text editor.
-We will be changing parameters in `&colors`, `&controls`, and the `inlist_pgstar`. Let's start with `&colors`!
+For this lab, we are going to start with the same inlist as before, but we'll be adding a few things.
+We will be changing parameters in `&colors`, `&controls`, and the `inlist_pgstar`. Let's start with `&colors`.
 
 #### Setting up Custom Colors in `&colors`
 
@@ -58,13 +58,15 @@ The first thing we need to do is to make sure the colors module is on. By defaul
 use_colors = .true.
 ```
 
-Next we need to decide what filter system, stellar atmosphere table, and Vega SED file to use. For this lab, we want to use the 2MASS filters and the Kurucz 2003 atmosphere tables. To find out what systems are available, let's move to data directory and start exploring! 
+Next, we need to provide the file path to a filter system, stellar atmosphere, and VEGA SED. For this lab, we want to use the 2MASS filters, Kurucz 2003 atmosphere tables, and vega_flam.csv as our Vega SED reference file.
 
-```bash
-cd $MESA_DIR/data/colors_data/
-```
+**Task:** `cd $MESA_DIR/data/colors_data/` to look for 2MASS, Kurucz2003, and vega_flam.csv and add them to your inlist:
 
-Once you've found the right filters and atmosphere tables, add them to your inlist.
+```fortran
+  instrument =     !!!!!
+  stellar_atm =     !!!!!
+  vega_sed =     !!!!!
+  ```
 
   {{< details title="Hint" closed="true" >}}
 
@@ -90,7 +92,9 @@ Once you've found the right filters and atmosphere tables, add them to your inli
 > [!CAUTION]
 > Proper syntax is important! Make sure that for the `instrument` directory there _isn't_ a '/' at the end, but for `stellar_atm` there _is_ a '/'
 
-Now let's decide the distance of the star (in cm). For apparent magnitude, you can do any distance you want. For absolute magnitude, the distance should be 10 parsecs, or 3.0857 x 10<sup>19</sup> cm. Update the distance parameter to be 10 pc
+Now let's decide the distance of the star (in cm). For apparent magnitude, you can do any distance you want. For absolute magnitude, the distance should be 10 parsecs, or 3.0857 x 10<sup>19</sup> cm. 
+
+**Task:** Update the distance parameter to be 10 pc
 
 
 
@@ -217,11 +221,11 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
 > For `inlist_pgstar` to work, there needs to be a blank new line after `/ ! end of pgstar namelist`. If you copy the file above and get the error `Fortran runtime error: End of file`, make sure to add a new line to `inlist_pgstar`
 
 
-### Step 3 - Visualizing the changes outside of MESA
+### Step 3 - Isochrone Building
 
-#### Isochrones
+Isochrones are a snapshot of stellar evolution, showing how stars evolve differently at the same age depending on their initial masses. To visualize this, we'll run one stellar track and record the $T_{\rm eff}$ and log(L) at 1, 3, 5, 7, and 9 Gyr. **Use the same mass as in lab 1**
 
-Go to the same [Google spreadsheet](https://docs.google.com/spreadsheets/d/1C88C5V2siCAaK8-3qgAZoNc9-9IH-RTIqFVetXQc3EM/edit?usp=sharing) as Lab 1. On the bottom, switch to the tab labeled "Lab 2". For this part, let's rerun a star with `mixing_length_alpha = 1.8d0` and the Eddington atmospheric boundary condition (`atm_T_tau_relation = 'Eddington'`). Once your star is done evolving, copy the values for "Teff" and "log(L)" from the terminal window into the Google sheet. _Make sure you are putting the values at the right corresponding age!_
+**Task:** Start the model run using `./rn`. Once your star is done evolving, copy the values for "$T_{\rm eff}$" and "log(L)" from the terminal window into this [Google spreadsheet](https://docs.google.com/spreadsheets/d/1C88C5V2siCAaK8-3qgAZoNc9-9IH-RTIqFVetXQc3EM/edit?usp=sharing) (make sure you switch to the tab labeled "Lab 2" at the bottom)
 
 As everyone finishes filling out the spreadsheet, we'll get to see an isochrone being built!
 
@@ -474,7 +478,7 @@ Here is what your inlist should look like! You can also download a copy from [he
 
 {{< /details >}}
 
-### Bonus task (if there's time)
+### Bonus task - More than one filter system
 
 In this lab, we used the Custom Colors module to visualize 2MASS magnitudes. What if you want to compare more than one filter system at the same time?
 
