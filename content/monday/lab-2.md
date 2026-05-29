@@ -122,50 +122,6 @@ No! Add the following lines of code to make sure MESA includes Custom Colors:
 
 {{< /details >}}
 
-What if you want to compare more than one filter system at the same time?
-
-{{< details title="Bonus Task - More than one filter system" closed="true" >}}
-
-**Make sure you finish the rest of this lab and return to this if you have time!**
-
-Sometimes you want to use more than one filter system. To do this with Custom Colors, we must look into the data structure more. Follow these steps to make a joint Gaia-2MASS filter system you can use:
-
-``` terminal
-! in **one step above**your working directory
-mkdir data
-cd data
-mkdir filters
-cd filters
-mkdir GAIA_2MASS
-cd GAIA_2MASS
-
-cp -r $MESA_DIR/data/colors_data/filters/GAIA/GAIA/*.dat .
-cp -r $MESA_DIR/data/colors_data/filters/2MASS/2MASS/*.dat .
-```
-
-
-Now that you've made this joint filter system, let's make a file called `GAIA_2MASS` and open it in your preferred text editor. Now add all the filters to use. For Gaia and 2MASS, it should look like:
-
-```fortran
-G.dat
-Gbp.dat
-Grp.dat
-Grvs.dat
-H.dat
-J.dat
-Ks.dat
-```
-
-Finally, you can replace the line for 'instrument' in `&colors` with
-
-```fortran
-instrument = '../data/filters/GAIA_2MASS'
-```
-
-** A completely working version of this can be downloaded [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE) called 'BONUS_data_multiple_filters.zip'. Make sure this is in the directory **above** your working directory for it to work!
-
-{{< /details >}}
-
 
 #### `&controls`
 
@@ -192,7 +148,10 @@ Here, we assume that gravity, _g_, is spatially constant. There are 4 options fo
 {{< details title="Information on T($\tau$) options" closed="true" >}}
 
    * `Eddington` - The Eddington grey relation says that the effective temperature is equal to the physical temperature at an optical depth of 2/3:
-   ($T^{4}(\tau) = \frac{3}{4} T^{4}_{\rm eff}(\tau + \frac{2}{3}$)
+   $T^{4}(\tau) = \frac{3}{4} T^{4}_{\rm eff}(\tau + \frac{2}{3}$)
+   * `solar_Hopf` - A function calibrated to the Sun, using a grey T($\tau$) relation (i.e. 
+   * `Krishna_Swamy` - 
+   * `Trampedach_solar`
 
   {{< /details >}}
 
@@ -521,5 +480,51 @@ Here is what your inlist should look like! You can also download a copy from [he
 / ! end of pgstar namelist
 
 </details> 
+
+{{< /details >}}
+
+### Bonus task (if there's time)
+
+In this lab, we used the Custom Colors module to visualize 2MASS magnitudes. What if you want to compare more than one filter system at the same time?
+
+{{< details title="Bonus Task - More than one filter system" closed="true" >}}
+
+**Make sure you finish the rest of this lab and return to this if you have time!**
+
+Sometimes you want to use more than one filter system. To do this with Custom Colors, we must look into the data structure more. Follow these steps to make a joint Gaia-2MASS filter system you can use:
+
+``` terminal
+! in **one step above**your working directory
+mkdir data
+cd data
+mkdir filters
+cd filters
+mkdir GAIA_2MASS
+cd GAIA_2MASS
+
+cp -r $MESA_DIR/data/colors_data/filters/GAIA/GAIA/*.dat .
+cp -r $MESA_DIR/data/colors_data/filters/2MASS/2MASS/*.dat .
+```
+
+
+Now that you've made this joint filter system, let's make a file called `GAIA_2MASS` and open it in your preferred text editor. Now add all the filters to use. For Gaia and 2MASS, it should look like:
+
+```fortran
+G.dat
+Gbp.dat
+Grp.dat
+Grvs.dat
+H.dat
+J.dat
+Ks.dat
+```
+
+Finally, you can replace the line for 'instrument' in `&colors` with
+
+```fortran
+instrument = '../data/filters/GAIA_2MASS'
+```
+
+** A completely working version of this can be downloaded [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE) called 'BONUS_data_multiple_filters.zip'. Make sure this is in the directory **above** your working directory for it to work!
 
 {{< /details >}}
