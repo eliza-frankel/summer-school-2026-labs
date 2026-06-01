@@ -222,6 +222,14 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
 > [!TIP]
 > For `inlist_pgstar` to work, there needs to be a blank new line after `/ ! end of pgstar namelist`. If you copy the file above and get the error `Fortran runtime error: End of file`, make sure to add a new line to the end of `inlist_pgstar`
 
+{{< details title="What should your pgstar plots look like?" closed="true" >}}
+Once your star leaves the pre main sequence, two windows will show up on your screen. Here is an example of what the plots will show for a 1 M$_{\odot}$ star.
+
+<img width="400" height="400" alt="hr" src="https://github.com/user-attachments/assets/4712e8c0-cab8-4ad6-b59c-7a4c5eebf1b2" /> <img width="400" height="400" alt="mags" src="https://github.com/user-attachments/assets/90ca6023-c855-437d-a37c-5c12837cc762" />
+
+
+
+{{< /details >}}
 
 ### Step 3 - Isochrone Building
 
@@ -239,8 +247,7 @@ As everyone finishes filling out the spreadsheet, we'll get to see an isochrone 
 
 #### Boundary Conditions
 
-For this lab, we want to explore the different atmospheric boundary conditions and the mixing length parameter, $\alpha_{
-m MLT}$. Start with just changing the boundary conditions.
+For this lab, we want to explore the different atmospheric boundary conditions and the mixing length parameter, $\alpha_{\rm MLT}$. Start with just changing the boundary conditions.
 
 In `&controls` above, we chose the Eddington T_tau relationship. Before we start running MESA, let's change one more parameter in `&controls` - because we want to compare how different parameters change evolution, we need to change the output file name so they don't overwrite each other. Make sure you give your new history file a descriptive name, for example if you are running a 1 $M_{\odot}$ star using the T_tau Eddington relationship, a good name would be: 
 
@@ -283,14 +290,11 @@ You can also change `atm_option` to something other than a T($\tau$) relation, b
 
 Once you've explored how the atmospheric boundary conditions change evolution, set `atm_T_tau_relation` back to `Eddington`. * If you changed `atm_option` to something other than 'T_tau', go ahead and change it back, too.
 
-#### Mixing length parameter, $\alpha_{rm MLT}$
+#### Mixing length parameter, $\alpha_{\rm MLT}$
 
-As we know, MESA is a 1 dimensional stellar evolution code which means it has to be creative when modeling 3D processes. In order to model energy transport in stars, MESA utilizes mixing length theory (MLT), which is the standard 1D parameterization of convection. One of the key parts of MLT is the mixing length parameter, $\alpha_{
-m MLT}$. This is a unitless value that represents the convective efficiency of a region (i.e. what fraction of energy transport is being moved by convection rather than radiation). By changing $\alpha_{
-m MLT}$, we can drastically change a star's main sequence lifetime, opacity, and more!
+As we know, MESA is a 1 dimensional stellar evolution code which means it has to be creative when modeling 3D processes. In order to model energy transport in stars, MESA utilizes mixing length theory (MLT), which is the standard 1D parameterization of convection. One of the key parts of MLT is the mixing length parameter, $\alpha_{\rm MLT}$. This is a unitless value that represents the convective efficiency of a region (i.e. what fraction of energy transport is being moved by convection rather than radiation). By changing $\alpha_{\rm MLT}$, we can drastically change a star's main sequence lifetime, opacity, and more!
 
-Look through the controls default parameters again and find the mixing length parameter, or $\alpha_{
-m MLT}$. What value have we been using? 
+Look through the controls default parameters again and find the mixing length parameter, or $\alpha_{\rm MLT}$. What value have we been using? 
 
 {{< details title="Hint" closed="true" >}}
 Check under the tab "mixing parameters" for the controls defaults
