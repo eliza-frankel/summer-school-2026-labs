@@ -9,14 +9,14 @@ title = 'Lab 2 - Exploring MESA Custom Colors!'
 The MESA colors module allows us to generate synthetic photometry while running MESA stellar evolution models! It is a great way to merge observational and theoretical astronomy. With the colors module, we can specify what filter system and stellar atmosphere we want to use, and on top of regular MESA outputs (effective temperature, luminosity, age, etc.) we get bolometric magnitude, M$_{bol}$, bolometric flux, F$_{bol}$, and many synthetic magnitudes. For more information on the colors module, look at the [documentation](https://docs.mesastar.org/en/26.4.1/test_suite/custom_colors.html) or look at `$MESA_DIR/colors/defaults/colors.defaults`.
 
 
-One major age dating technique for stellar populations is through the use of isochrones. Isochrones are single-aged, chemically homogenous populations that show a snapshot of stellar evolution. They're made by evolving stars with the same chemical composition but different initial masses, and then finding what point in evolution each star is at at a particular age. Larger stars burn hotter and brighter, leaving the main sequence much quicker than a lower mass star. For example, at 10 Gyr we can see a 0.8 $M_{\odot}$ still on the main sequence, while a 5 $M_{\odot}$ star will be long past the Red Giant Branch. Because of this, we can build isochrones and use them to determine the age of stellar populations. One caveat to this is that they use the assumption that all the stars are at relatively the same distance and formed from the same materials at relatively the same time. _The best stellar populations to use isochrones when age dating stars is in clusters because we can make these assumptions._
+One major age dating technique for stellar populations is through the use of isochrones. Isochrones are single-aged, chemically homogeneous populations that show a snapshot of stellar evolution. They're made by evolving stars with the same chemical composition but different initial masses, and then finding what point in evolution each star is at at a particular age. Larger stars burn hotter and brighter, leaving the main sequence much quicker than a lower mass star. For example, at 10 Gyr we can see a 0.8 $M_{\odot}$ still on the main sequence, while a 5 $M_{\odot}$ star will be long past the Red Giant Branch. Because of this, we can build isochrones and use them to determine the age of stellar populations. One caveat to this is that they use the assumption that all the stars are at relatively the same distance and formed from the same materials at relatively the same time. _The best stellar populations to use isochrones when age dating stars is in clusters because we can make these assumptions._
 
 This figure shows a series of isochrones at different ages between 0.03 Gyr to 10 Gyr, made using MIST. As the population gets older, the shape of the isochrone changes too!
 <img width="450" height="600" alt="isochrones" src="https://github.com/user-attachments/assets/b115dfa9-6604-4531-9b04-d7dfb6481184" />
 
 
 
-In this lab, we'll learn how atmospheric boundary conditions and the convective mixing length parameter can impact stellar evolution in both observational and theoretical coordinates. We'll also build isochrones to explore other techniques for age dating stellar populations and planet hosts.
+In this lab, we'll learn how atmospheric boundary conditions and the convective mixing length parameter can impact stellar evolution in both observational and theoretical coordinates. Together, we'll also build isochrones to explore other techniques for age dating stellar populations and planet hosts.
 
 
 ### Step 1 - Directory Prep
@@ -27,7 +27,7 @@ Last lab we made a working directory that has everything we want to start lab 2.
 cp -r work_lab1 work_lab2
 cd work_lab2
 ```
-Lets clean this directory and get rid of our outputs from Lab 1:
+Let's clean this directory and get rid of our outputs from Lab 1:
 
 ```bash
 ./clean
@@ -48,6 +48,11 @@ use_other_torque    = .false.
 For this lab, we are going to start with the same inlist as before, but we'll be adding a few things.
 We will be changing parameters in `&colors`, `&controls`, and the `inlist_pgstar`. Let's start with `&colors`.
 
+> [!TIP]
+> As you edit your inlists, make sure to leave comments by using `!`. It's a good thing to get in the habit of & is very helpful when looking back at old codes!
+
+
+
 #### Setting up Custom Colors in `&colors`
 
 This is where we can enable synthetic photometry and determine what filters we'd like to use. Let's look through the [documentation](https://github.com/MESAHub/mesa/tree/main/colors).
@@ -55,6 +60,7 @@ This is where we can enable synthetic photometry and determine what filters we'd
 The first thing we need to do is to make sure the colors module is on. By default, custom colors is turned off.
 
 ```fortran
+! 
 use_colors = .true.
 ```
 
@@ -163,9 +169,6 @@ Here, we assume that gravity, _g_, is spatially constant. There are 4 options fo
   
 We'll start with the Eddington relation which is already defined in our inlist.
 
-You can also change `atm_option` from 'T_tau', but be sure that you're using all the right parameters!
->[!caution]
-> If you decide to try a different atmospheric option, carefully read the documentation. For example, if you wanted to try using `atm_option = 'table'`, make sure you comment out `atm_T_tau_relation` and `atm_T_tau_opacity` and add `atm_table` instead.
 
 #### `inlist_pgstar`
 
@@ -229,7 +232,8 @@ As everyone finishes filling out the spreadsheet, we'll get to see an isochrone 
 
 #### Boundary Conditions
 
-For this lab, we want to explore the different atmospheric boundary conditions and the mixing length parameter, $\alpha_{MLT}$. Start with just changing the boundary conditions.
+For this lab, we want to explore the different atmospheric boundary conditions and the mixing length parameter, $\alpha_{
+m MLT}$. Start with just changing the boundary conditions.
 
 In `&controls` above, we chose the Eddington T_tau relationship. Before we start running MESA, let's change one more parameter in `&controls` - because we want to compare how different parameters change evolution, we need to change the output file name so they don't overwrite each other. Make sure you give your new history file a descriptive name, for example if you are running a 1 $M_{\odot}$ star using the T_tau Eddington relationship, a good name would be: 
 
@@ -239,7 +243,26 @@ star_history_name = '1p0Msun_TtauEddington_history.data'
 
 Now you can `./rn` and watch the star evolve. 
 
-Once it is done, try changing up the atmospheric boundary conditions and see what changes!
+Once it is done, try using a different atmospheric boundary condition and see what changes!
+
+
+
+You can also change `atm_option` to something other than a T($\tau$) relation, but be sure that you're using all the right parameters. 
+
+{{< details title="Other `atm_option`s " closed="true" >}}
+
+  If you wanted to try model atmosphere tables for photosphere, you could try using the `photosphere` option. To do this, we need to change one line of code and add another:
+
+   ```fortran
+    ! Change from 'T_tau' to 'table' to use precalculated tables from model atmospheres
+    atm_option = 'table'
+
+    ! Add this line to specify which atmosphere table surface temperature and pressure use
+    ! For more options other than photosphere, take a look [here](https://docs.mesastar.org/en/26.4.1/reference/controls.html#atm-table)
+    atm_table = 'photosphere'
+   ```
+
+{{< /details >}}
 
 
 {{< details title="Hint" closed="true" >}}
@@ -247,17 +270,20 @@ Once it is done, try changing up the atmospheric boundary conditions and see wha
 There are many different combinations you can try! First, try changing `atm_T_tau_relation` to `solar_Hopf`, `Krishna_Swamy`, or `Trampedach_solar`. 
 
 > [!CAUTION]
-> Remember to change `star_history_name` to include the changes to atmospheric boundary conditons!
+> Remember to change `star_history_name` to include the changes to atmospheric boundary conditions!
 
 {{< /details >}}
 
-Once you've explored how the atmospheric boundary conditions change evolution, set `atm_T_tau_relation` back to `Eddington`.
+Once you've explored how the atmospheric boundary conditions change evolution, set `atm_T_tau_relation` back to `Eddington`. * If you changed `atm_option` to something other than 'T_tau', go ahead and change it back, too.
 
-#### Mixing length parameter, $\alpha_{MLT}$
+#### Mixing length parameter, $\alpha_{rm MLT}$
 
-As we know, MESA is a 1 dimensional stellar evolution code which means it has to be creative when modeling 3D processes. In order to model energy transport in stars, MESA utilizes mixing length theory (MLT), which is the standard 1D parametarization of convection. One of the key parts of MLT is the mixing length parameter, $\alpha_{MLT}$. This is a unitless value that represents the convective efficiency of a region (i.e. what fraction of energy transport is being moved by convection rather than radiation). By changing $\alpha_{MLT}$, we can drastically change a star's main sequence lifetime, opacity, and more!
+As we know, MESA is a 1 dimensional stellar evolution code which means it has to be creative when modeling 3D processes. In order to model energy transport in stars, MESA utilizes mixing length theory (MLT), which is the standard 1D parameterization of convection. One of the key parts of MLT is the mixing length parameter, $\alpha_{
+m MLT}$. This is a unitless value that represents the convective efficiency of a region (i.e. what fraction of energy transport is being moved by convection rather than radiation). By changing $\alpha_{
+m MLT}$, we can drastically change a star's main sequence lifetime, opacity, and more!
 
-Look through the controls default parameters again and find the mixing length parameter, or $\alpha_{MLT}$. What value have we been using? 
+Look through the controls default parameters again and find the mixing length parameter, or $\alpha_{
+m MLT}$. What value have we been using? 
 
 {{< details title="Hint" closed="true" >}}
 Check under the tab "mixing parameters" for the controls defaults
@@ -267,20 +293,20 @@ Check under the tab "mixing parameters" for the controls defaults
 The default value is `mixing_length_alpha = 2.0d0`
 {{< /details >}}
 
-The solar mixing length parameter for the Eddington T($\tau$) atmospheric boundary condition is arounnd 1.80. Add the solar mixing length parameter to `&controls` and remember to change the name of your output history file so you know what the input parameters are. In this case, you could name your history file something like:
+The solar mixing length parameter for the Eddington T($\tau$) atmospheric boundary condition is around 1.80. Add the solar mixing length parameter to `&controls` and remember to change the name of your output history file so you know what the input parameters are. In this case, you could name your history file something like:
 
 ```fortran
 star_history_name = '1p0Msun_alphaMLT1p80_history.data'
 ```
 
-Each star has a different mixing length parameter, so you can't always use the solar value. For example, $\alpha$ Centauri A and B have mixing lengths that are 0.932 $\alpha_{MLT,\odot}$ and 1.095 $\alpha_{MLT,\odot}$, respectively ([Joyce & Chaboyer 2018b](https://ui.adsabs.harvard.edu/abs/2018ApJ...864...99J/abstract)). Try changing the value of `mixing_length_alpha` and running a model for both cases!
+Each star has a different mixing length parameter, so you can't always use the solar value. For example, $\alpha$ Centauri A and B have mixing lengths that are 0.932 $\alpha_{MLT,\odot}$ and 1.095 $\alpha_{MLT,\odot}$, respectively ([Joyce & Chaboyer 2018b](https://ui.adsabs.harvard.edu/abs/2018ApJ...864...99J/abstract)). Try changing the value of `mixing_length_alpha` and running a model for either $\alpha$ Centauri A or B.
 
 
 
 > [!TIP]
 > You can't use math in an inlist, so if you wanted to have twice the mixing length, write `mixing_length_alpha = 3.6d0` rather than `mixing_length_alpha = 2 * 1.8d0`
 
-Choose at least 2 more objects from the following table and run a model for each, changing the history file name so we can plot them soon.
+Choose at least 1 more objects from the following table and run a model for each, changing the history file name so we can plot them soon. _Make sure you keep the same mass as you used in Lab 1!_
 
 | Object  | Type | Mixing Length  | Source |
 | :---- | :-- |:---- |:-- |
@@ -517,3 +543,7 @@ instrument = '../data/filters/GAIA_2MASS'
 ** A completely working version of this can be downloaded [here](https://drive.google.com/drive/folders/1qebaN8Qt6e1nqiEHkt9A0T-jfyPIzXCE) called 'BONUS_data_multiple_filters.zip'. Make sure this is in the directory **above** your working directory for it to work!
 
 {{< /details >}}
+
+### Bonus Task - Mixing Length Parameter
+
+If you've finished the lab early you can explore the atmospheric boundary conditions and mixing length parameter more. What happens if you keep both parameters the same but change the mass? What about changing mass and $\alpha_{\rm MLT}$? Mass and b
