@@ -183,16 +183,23 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
 
 
   ```fortran
-  &pgstar
+&pgstar
 
    ! see star/defaults/pgstar.defaults
 
    ! MESA uses PGPLOT for live plotting and gives the user a tremendous
    ! amount of control of the presentation of the information.
 
+
    ! show HR diagram
-   ! this plots the history of L, Teff over many timesteps
+   ! this plots the history of L,Teff over many timesteps
    HR_win_flag = .true.
+
+   ! To save HR diagram as png
+   HR_file_flag = .true.
+   HR_file_dir = 'png'
+   HR_file_prefix = 'hr_'
+
 
 
    ! set window size (aspect_ratio = height/width)
@@ -200,9 +207,14 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
    HR_win_aspect_ratio = 1.0
 
 
-   ! Color Color diagram
+   ! Magnitude Magnitude diagram
    History_Track2_win_width = 6
    History_Track2_win_aspect_ratio = 1.0
+
+   ! To save mag mag diagrams
+   History_Track2_file_flag = .true.
+   History_Track2_file_dir = 'png'
+   History_Track2_file_prefix = 'mag_'
 
    History_Track2_win_flag = .true.
    History_Track2_xname = 'J'
@@ -217,6 +229,7 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
 
 / ! end of pgstar namelist
 
+
 ```
 
 > [!TIP]
@@ -225,7 +238,7 @@ For this lab, we are only going to use an HR diagram and a plot showing 2MASS ma
 {{< details title="What should your pgstar plots look like?" closed="true" >}}
 Once your star leaves the pre main sequence, two windows will show up on your screen. Here is an example of what the plots will show for a 1 M$_{\odot}$ star.
 
-<img width="400" height="400" alt="hr" src="https://github.com/user-attachments/assets/4712e8c0-cab8-4ad6-b59c-7a4c5eebf1b2" /> <img width="400" height="400" alt="mags" src="https://github.com/user-attachments/assets/90ca6023-c855-437d-a37c-5c12837cc762" />
+<img width="300" height="300" alt="hr" src="https://github.com/user-attachments/assets/4712e8c0-cab8-4ad6-b59c-7a4c5eebf1b2" /> <img width="300" height="300" alt="mags" src="https://github.com/user-attachments/assets/90ca6023-c855-437d-a37c-5c12837cc762" />
 
 
 
