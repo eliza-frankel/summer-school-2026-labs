@@ -60,7 +60,7 @@ This is where we can enable synthetic photometry and determine what filters we'd
 The first thing we need to do is to make sure the colors module is on. By default, custom colors is turned off.
 
 ```fortran
-! 
+! Turns on Custom Colors
 use_colors = .true.
 ```
 
@@ -69,8 +69,13 @@ Next, we need to provide the file path to a filter system, stellar atmosphere, a
 **Task:** `cd $MESA_DIR/data/colors_data/` to look for 2MASS, Kurucz2003, and vega_flam.csv and add them to your inlist:
 
 ```fortran
+  ! Points to the directory where filters are 
   instrument =     !!!!!
+
+  ! Choice of stellar atmosphere tables
   stellar_atm =     !!!!!
+
+  ! Points to the reference SED file for Vega
   vega_sed =     !!!!!
   ```
 
@@ -107,6 +112,8 @@ Now let's decide the distance of the star (in cm). For apparent magnitude, you c
 {{< details title="Solution" closed="true" >}}
 
 ```fortran
+
+  ! Distance to star in cm for synthetic photometry
   distance = 3.0857d19
 ```
 
@@ -238,6 +245,7 @@ m MLT}$. Start with just changing the boundary conditions.
 In `&controls` above, we chose the Eddington T_tau relationship. Before we start running MESA, let's change one more parameter in `&controls` - because we want to compare how different parameters change evolution, we need to change the output file name so they don't overwrite each other. Make sure you give your new history file a descriptive name, for example if you are running a 1 $M_{\odot}$ star using the T_tau Eddington relationship, a good name would be: 
 
 ```fortran
+! Changes the name of your history file
 star_history_name = '1p0Msun_TtauEddington_history.data'
 ```
 
@@ -245,11 +253,18 @@ Now you can `./rn` and watch the star evolve.
 
 Once it is done, try using a different atmospheric boundary condition and see what changes!
 
+{{< details title="Hint" closed="true" >}}
 
+There are many different combinations you can try! First, try changing `atm_T_tau_relation` to `solar_Hopf`, `Krishna_Swamy`, or `Trampedach_solar`. 
+
+> [!CAUTION]
+> Remember to change `star_history_name` to include the changes to atmospheric boundary conditions!
+
+{{< /details >}}
 
 You can also change `atm_option` to something other than a T($\tau$) relation, but be sure that you're using all the right parameters. 
 
-{{< details title="Other `atm_option`s " closed="true" >}}
+{{< details title="Other `atm_option` " closed="true" >}}
 
   If you wanted to try model atmosphere tables for photosphere, you could try using the `photosphere` option. To do this, we need to change one line of code and add another:
 
@@ -265,14 +280,6 @@ You can also change `atm_option` to something other than a T($\tau$) relation, b
 {{< /details >}}
 
 
-{{< details title="Hint" closed="true" >}}
-
-There are many different combinations you can try! First, try changing `atm_T_tau_relation` to `solar_Hopf`, `Krishna_Swamy`, or `Trampedach_solar`. 
-
-> [!CAUTION]
-> Remember to change `star_history_name` to include the changes to atmospheric boundary conditions!
-
-{{< /details >}}
 
 Once you've explored how the atmospheric boundary conditions change evolution, set `atm_T_tau_relation` back to `Eddington`. * If you changed `atm_option` to something other than 'T_tau', go ahead and change it back, too.
 
