@@ -68,6 +68,9 @@ Next, we need to provide the file path to a filter system, stellar atmosphere, a
 
 **Task:** `cd $MESA_DIR/data/colors_data/` to look for 2MASS, Kurucz2003, and vega_flam.csv and add them to your inlist:
 
+> [!Note]
+> There are two Kurucz 2003 atmosphere tables in Custom Colors - let's use `Kurucz2003all/`
+
 ```fortran
   ! Points to the directory where filters are 
   instrument =     !!!!!
