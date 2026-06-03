@@ -55,7 +55,7 @@ We will be changing parameters in `&colors`, `&controls`, and the `inlist_pgstar
 
 #### Setting up Custom Colors in `&colors`
 
-This is where we can enable synthetic photometry and determine what filters we'd like to use. Let's look through the [documentation](https://github.com/MESAHub/mesa/tree/main/colors).
+This is where we can enable synthetic photometry and determine what filters we'd like to use. Let's look through the documentation](https://docs.mesastar.org/en/26.4.1/test_suite/custom_colors.html).
 
 The first thing we need to do is to make sure the colors module is on. By default, custom colors is turned off.
 
@@ -272,9 +272,9 @@ In `&controls` above, we chose the Eddington T_tau relationship. Before we start
 star_history_name = '1p0Msun_TtauEddington_history.data'
 ```
 
-Now you can `./rn` and watch the star evolve. 
 
-Once it is done, try using a different atmospheric boundary condition and see what changes!
+**Task:** Change the name of your history file. Now you can `./rn` and watch the star evolve. Once it is done running, try using a different atmospheric boundary condition and see what changes!
+
 
 {{< details title="Hint" closed="true" >}}
 
